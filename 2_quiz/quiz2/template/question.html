@@ -1,0 +1,8 @@
+<h1>{{ question.question }}</h1>
+<form action="/answer">
+{% for choice in question.choice_set.all %}
+    <input type="radio" name="Answer" value="{{ choice.id }}"/>{{ choice.choice }}<br />
+{% endfor %}
+	<input type="hidden" name="G_ID" value="{{ question.id }}" />
+<input type="submit" />
+</form>

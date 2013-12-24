@@ -1,0 +1,26 @@
+<html>
+<head>Результаты</head>
+<link href="/static/main.css" rel="stylesheet" type="text/css"/>
+<body>
+<div id="question"></div>
+<a href="/">вернуться к опросу</a>
+<script>
+var results = [{% for choice in question.choice_set.all %}
+    {"sum":{{ choice.votes}}, "name":"{{choice.choice}}" } ,
+{% endfor %}]
+var sum =0;
+for(var i = results.length-1;i>=0;i--)
+	sum +=results[i].sum;
+	
+var question = document.getElementById('question');
+
+for(var i = results.length-1;i>=0;i--)
+{	
+	x = document.createElement('div');;
+	x.style.height = results[i].sum*100/sum  + '%';
+	x.innerHTML = results[i].name;
+	question.appendChild(x);
+}</script>
+
+</body>
+</html>
