@@ -3,7 +3,6 @@
 <link href="/static/main.css" rel="stylesheet" type="text/css"/>
 <body>
 <div id="question"></div>
-<a href="/">вернуться к опросу</a>
 <script>
 var results = [{% for choice in question.choice_set.all %}
     {"sum":{{ choice.votes}}, "name":"{{choice.choice}}" } ,
@@ -18,9 +17,28 @@ for(var i = results.length-1;i>=0;i--)
 {	
 	x = document.createElement('div');;
 	x.style.height = results[i].sum*100/sum  + '%';
+	question.appendChild(x);
+}</script>
+
+
+<div id="question2"></div>
+<script>
+var results = [{% for choice in question.choice_set.all %}
+    {"sum":{{ choice.votes}}, "name":"{{choice.choice}}" } ,
+{% endfor %}]
+var sum =0;
+for(var i = results.length-1;i>=0;i--)
+	sum +=results[i].sum;
+	
+var question = document.getElementById('question2');
+
+for(var i = results.length-1;i>=0;i--)
+{	
+	x = document.createElement('div');;
 	x.innerHTML = results[i].name;
 	question.appendChild(x);
 }</script>
 
+<a href="/">вернуться к опросу</a>
 </body>
 </html>
